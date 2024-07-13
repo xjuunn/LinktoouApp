@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/i18n",
     "@hypernym/nuxt-anime",
-    "@nuxt/content"
+    "@nuxt/content",
+    "@nuxt/image"
   ],
   i18n: {
     detectBrowserLanguage: {

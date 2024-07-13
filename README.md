@@ -12,4 +12,7 @@
 * markdown-it
 * animejs
 * @nuxi/content
- 
+* peerjs
+* jsencrypt
+
+
