@@ -1,25 +1,46 @@
 <template>
-    <div class="sidebar h-screen bg-base-100 flex">
+    <div ref="sidebar" class="sidebar h-screen bg-base-100 flex">
         <div class="sidebar_content flex-1">
-            test
+            {{ resizeing }}
         </div>
         <div class="resizebar h-screen flex items-center">
-            <div class="box bg-neutral-400"></div>
+            <div class="box bg-neutral-400" @mousedown="() => { resizeing = true }">
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+let resizeing = ref(false);
+let sidebar = ref(null);
+onMounted(() => {
+    document.addEventListener('mouseup', (e) => {
+        resizeing.value = false;
+    })
+
+    document.addEventListener('mousemove', (e) => {
+        if (!resizeing.value) {
+            return;
+        }
+        let width = e.x;
+        if (width <= 270) width = 270;
+        if (width >= 400) width = 400;
+        sidebar.value.style.width = width + 'px';
+
+
+    })
+})
 
 </script>
 
 <style lang="scss" scoped>
 .sidebar {
-    width: 300px;
+    --width: 300px;
+    width: var(--width);
     border-right: 1px solid #77777720;
+    // transition: .3s;
 
     .resizebar {
-        // background-color: red;
         width: 6px;
 
         .box {
