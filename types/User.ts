@@ -12,6 +12,4 @@ export default class User {
     online: boolean = false;
     public_rsa_key: string = '';
 
-
-
 }
