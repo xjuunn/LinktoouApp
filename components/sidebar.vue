@@ -19,15 +19,11 @@ onMounted(() => {
     })
 
     document.addEventListener('mousemove', (e) => {
-        if (!resizeing.value) {
-            return;
-        }
+        if (!resizeing.value) return;
         let width = e.x;
         if (width <= 270) width = 270;
         if (width >= 400) width = 400;
-        sidebar.value.style.width = width + 'px';
-
-
+        sidebar.value.style.width = width+4 + 'px';
     })
 })
 
