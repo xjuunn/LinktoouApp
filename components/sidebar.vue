@@ -4,17 +4,26 @@
             {{ resizeing }}
         </div>
         <div class="resizebar h-screen flex items-center">
-            <div class="box bg-neutral-400" @mousedown="() => { resizeing = true }">
+            <div class="box bg-neutral-400" :class="{ 'resizeing': resizeing }" @mousedown="() => { resizeing = true }">
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+
+onMounted(() => {
+    sidebarResizeHandler()
+
+
+
+})
+
+//#region 侧边栏拖动改变宽度
 let resizeing = ref(false);
 let sidebar = ref(null);
-onMounted(() => {
-    document.addEventListener('mouseup', (e) => {
+function sidebarResizeHandler() {
+    document.addEventListener('mouseup', () => {
         resizeing.value = false;
     })
 
@@ -23,10 +32,10 @@ onMounted(() => {
         let width = e.x;
         if (width <= 270) width = 270;
         if (width >= 400) width = 400;
-        sidebar.value.style.width = width+4 + 'px';
+        sidebar.value.style.width = width + 4 + 'px';
     })
-})
-
+}
+//#endregion
 </script>
 
 <style lang="scss" scoped>
@@ -34,7 +43,6 @@ onMounted(() => {
     --width: 300px;
     width: var(--width);
     border-right: 1px solid #77777720;
-    // transition: .3s;
 
     .resizebar {
         width: 6px;
@@ -49,13 +57,28 @@ onMounted(() => {
             cursor: col-resize;
             opacity: 0;
         }
+
+        .resizeing {
+            width: 4px;
+            height: 200px;
+            opacity: 0.3;
+            scale: 1.2;
+            transition-delay: 0s;
+
+        }
+
     }
+
+
 
     .resizebar:hover .box {
         width: 4px;
         height: 200px;
         opacity: 0.3;
-
     }
+
+
+
+
 }
 </style>
