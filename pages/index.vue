@@ -1,6 +1,8 @@
 <template>
     <div>
-        <Sidebar></Sidebar>
+        <Sidebar>
+            <ChatChatlist></ChatChatlist>
+        </Sidebar>
     </div>
 </template>
 
@@ -8,6 +10,4 @@
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

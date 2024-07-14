@@ -19,5 +19,9 @@ export default class User {
     online: boolean = false;
     /** 用户RSA加密公钥 */
     public_rsa_key: string = '';
+    /** 最后一条信息 */
+    lastMessage:string='';
+    /** 最后接收或发送消息的时间 */
+    lastTime:Date|null = null;
 
 }
