@@ -1,7 +1,7 @@
 <template>
     <div ref="sidebar" class="sidebar h-screen bg-base-100 flex">
         <div class="sidebar_content flex-1">
-            {{ resizeing }}
+            
         </div>
         <div class="resizebar h-screen flex items-center">
             <div class="box bg-neutral-400" :class="{ 'resizeing': resizeing }" @mousedown="() => { resizeing = true }">
@@ -35,7 +35,7 @@ function sidebarResizeHandler() {
         sidebar.value.style.width = width + 4 + 'px';
     })
 }
-//#endregion
+//#endregion 
 </script>
 
 <style lang="scss" scoped>
