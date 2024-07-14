@@ -10,23 +10,23 @@ export const usePeer = () => {
   function connect(peer_id) {
     let conn = peer.connect(peer_id);
     conn.on("open", () => {
-      userManager.addUserByInfo(peer_id, peer_id, conn);
-      conn.on("data", (data) => {
-        messageManager.messageHandler(conn.peer, data);
-      });
+      connected(userManager.addUserByInfo(peer_id, peer_id, conn));
     });
   }
   // 被连接
   peer.on("connection", (conn) => {
-    userManager.addUserByInfo(conn.peer, conn.peer, conn);
-    conn.on("data", (data) => {
-      messageManager.messageHandler(conn.peer, data);
-    });
+    connected(userManager.addUserByInfo(conn.peer, conn.peer, conn));
   });
   // 发送消息
   function sendById(peer_id, message) {
     let user = userManager.findUserById(peer_id);
     user.conn.send(message);
+  }
+
+  function connected(user) {
+    user.conn.on("data", (data) => {
+      messageManager.messageHandler(user.id, data);
+    });
   }
 
   return {

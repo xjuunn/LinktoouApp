@@ -5,19 +5,22 @@ export default class UserManager {
 
     static userList: Map<string, User> = new Map();
 
-    public addUser(user: User) {
+    public addUser(user: User): User {
         UserManager.userList.set(user.id, user);
+        return user;
     }
 
-    public addUserByInfo(id: string, name: string, conn: any) {
-        UserManager.userList.set(id, new User(id, name, conn));
+    public addUserByInfo(id: string, name: string, conn: any): User {
+        let user = new User(id, name, conn);
+        this.addUser(user);
+        return user;
     }
 
-    public findUserById(id: string): User|undefined {
+    public findUserById(id: string): User | undefined {
         return UserManager.userList.get(id);
     }
 
-    public getUserList(): Map<string, User>{
+    public getUserList(): Map<string, User> {
         return UserManager.userList;
     }
 
