@@ -1,7 +1,7 @@
 <template>
     <div class="text-center mt-3">
-        <div role="tablist" class="tabs tabs-bordered">
-            <a @click="onTabClick(item)" role="tab" class="tab" :class="{ 'tab-active': item == tabActive }"
+        <div role="tablist" class="tabs tabs-bordered relative">
+            <a @click="onTabClick(item,$event)" role="tab" class="tab z-10" :class="{ 'tab-active': item == tabActive }"
                 v-for="(item, index) in tabs" :key="index">{{ item }}
             </a>
         </div>
@@ -15,7 +15,8 @@ let emit = defineEmits(['onTabChanged'])
 onMounted(() => {
     tabActive.value = props.tabs[0];
 })
-function onTabClick(tab) {
+function onTabClick(tab,e) {
+    console.log(e.srcElement.style);
     if (tabActive.value === tab) return;
     tabActive.value = tab
     emit('onTabChanged', tab)
@@ -23,8 +24,6 @@ function onTabClick(tab) {
 </script>
 
 <style lang="scss" scoped>
-.tab-active{
-    // font-weight: 700;
-}
+
 </style>
 
