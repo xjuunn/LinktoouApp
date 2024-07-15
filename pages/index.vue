@@ -18,6 +18,14 @@
 </template>
 
 <script setup>
+let { peer, connect, sendById } = usePeer();
+peer.on('open',(id)=>{
+    UserInfoManager.id.value = id;
+    UserInfoManager.isOnline.value = true;
+})
+onMounted(()=>{
+    
+})
 function changeTabs(tab) {
     console.log("切换tab", tab);
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="userInfoCard m-1 rounded-lg hover:bg-base-300 transition-color collapse collapse-arrow focus:border-base-content focus:border-2"
+    <div class="userInfoCard m-1 rounded-lg hover:bg-base-300 transition-color collapse collapse-arrow focus:border-base-content border-2 border-transparent"
         tabindex="0">
         <div class="flex collapse-title p-3 m-0">
             <div class="avatar skeleton" :class="UserInfoManager.isOnline.value ? 'online' : 'offline'">
