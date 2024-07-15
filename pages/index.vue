@@ -1,7 +1,8 @@
 <template>
     <div>
         <Sidebar>
-            <ChatChatlist></ChatChatlist>
+            <UserInfoCardVue></UserInfoCardVue>
+            <!-- <ChatChatlist></ChatChatlist> -->
         </Sidebar>
     </div>
 </template>
