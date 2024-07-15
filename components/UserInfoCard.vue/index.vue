@@ -28,8 +28,6 @@
 
 <script setup>
 let clipboard = useClipboard()
-onBeforeMount(() => {
-})
 onMounted(() => {
     UserInfoManager.id.value = "sdflas;dhfpaoehjfoj;shgoiuwpeofijdfasdfe";
     UserInfoManager.name.value = "Junhsiun";
