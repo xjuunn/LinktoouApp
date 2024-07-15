@@ -22,6 +22,8 @@ export default class UserInfoManager {
     static private_rsa_key: string;
     /** 用户是否在线 */
     static isOnline: Ref<boolean> = ref(false);
+    /** 页面主题切换 */
+    static themes:[string,string] = ['dark','nord'];
 }
 
 interface Contact {

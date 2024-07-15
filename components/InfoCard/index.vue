@@ -26,7 +26,8 @@
             <div class="join mt-4 flex">
                 <div class="flex-1">
                     <label class="swap swap-rotate">
-                        <input type="checkbox" v-model="themeDark"  class="theme-controller" value="synthwave" />
+                        <input type="checkbox" v-model="themeDark" :data-toggle-theme="themeToggle"
+                            data-act-class="ACTIVECLASS" class="theme-controller" value="synthwave" />
                         <svg class="swap-on h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24">
                             <path
@@ -48,10 +49,19 @@
 
 <script setup>
 let clipboard = useClipboard()
+import { themeChange } from 'theme-change'
 let themeDark = ref(true);
-watch(themeDark,(e,oldValue,onCleanup)=>{
-
-    console.log("切换主题:" ,themeDark.value?'dark':'light');
+watch(themeDark, async () => {
+    let html = document.getElementsByTagName('html')[0];
+    html.setAttribute('data-theme', themeDark.value ? 'dark' : 'nord');
+})
+let themeToggle = computed(() => {
+    return UserInfoManager.themes[0] + ',' + UserInfoManager.themes[1];
+})
+onMounted(() => {
+    themeChange(false)
+    let theme = useLocalStorage('theme');
+    if(theme.value !== UserInfoManager.themes[0]) themeDark.value = false;
 })
 function copy(msg) {
     clipboard.copy(msg);
