@@ -16,7 +16,6 @@ onMounted(() => {
     tabActive.value = props.tabs[0];
 })
 function onTabClick(tab,e) {
-    console.log(e.srcElement.style);
     if (tabActive.value === tab) return;
     tabActive.value = tab
     emit('onTabChanged', tab)

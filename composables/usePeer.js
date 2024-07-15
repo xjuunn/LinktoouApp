@@ -1,9 +1,12 @@
 import Peer from "peerjs";
 let peer = null;
-export const usePeer = () => {
-  // 初始化 Peer
-  if (!peer) peer = new Peer();
-  // 连接
+export const usePeer = (init_peer_id) => {
+  if (!peer) peer = new Peer(init_peer_id?init_peer_id:null);
+  // 手动初始化
+  function init(){
+    peer = new Peer(init_peer_id?init_peer_id:null);
+  }
+  // 连接其他用户
   function connect(peer_id) {
     let conn = peer.connect(peer_id);
     conn.on("open", () => {
@@ -28,6 +31,7 @@ export const usePeer = () => {
 
   return {
     peer,
+    init,
     connect,
     sendById,
   };

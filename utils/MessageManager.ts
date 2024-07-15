@@ -1,3 +1,4 @@
+/** 消息管理 */
 export default class MessageManager {
 
     public static messageHandler(peer_id: string, message: string) {

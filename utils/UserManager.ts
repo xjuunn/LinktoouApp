@@ -1,4 +1,7 @@
 import User from '../types/User'
+/**
+ * 存储已连接用户列表
+ */
 export default class UserManager {
 
     static userList: Map<string, User> = new Map();

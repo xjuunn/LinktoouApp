@@ -1,7 +1,7 @@
 <template>
     <div>
         <Sidebar>
-            <UserInfoCardVue></UserInfoCardVue>
+            <InfoCard></InfoCard>
             <label class="input input-ghost input-sm focus-within:border-0 flex items-center gap-2 me-1 ms-1">
                 <input type="text" class="grow" placeholder="搜索" />
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -12,16 +12,17 @@
                 </svg>
             </label>
             <ChatTabs :tabs="['聊天', '群组', '频道']" @onTabChanged="changeTabs"></ChatTabs>
-            <ChatChatlist></ChatChatlist>
+            <ChatList></ChatList>
         </Sidebar>
     </div>
 </template>
 
 <script setup>
-let { peer, connect, sendById } = usePeer();
+let { peer, connect, sendById } = usePeer('4f5e8d30-846e-48d4-b68d-627520fc2f02');
 peer.on('open',(id)=>{
     UserInfoManager.id.value = id;
     UserInfoManager.isOnline.value = true;
+    UserInfoManager.name.value = UserInfoManager.id.value.substring(0,6)
 })
 onMounted(()=>{
     
