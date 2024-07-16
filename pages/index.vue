@@ -21,23 +21,20 @@
 </template>
 
 <script setup>
+
 import { useNotification } from '../composables/useNotification';
 import AppNotification, { NotificationLevel } from '../types/AppNotification';
 import { AppNotificationBuilder } from '../utils/AppNotificationBuilder';
 let { NotificationManager, createNotification } = useNotification();
 
-import Peer from 'peerjs';
-let peer = new Peer();
-
-
-// let { peer, connect, sendById } = usePeer();
-// peer.on('open', (id) => {
-//     UserInfoManager.id.value = id;
-//     UserInfoManager.isOnline.value = true;
-//     UserInfoManager.username.value = UserInfoManager.id.value.substring(0, 6)
-// })
 onMounted(() => {
-
+    let { peer, connect, sendById } = usePeer();
+    peer.on('open', (id) => {
+        UserInfoManager.id.value = id;
+        UserInfoManager.isOnline.value = true;
+        UserInfoManager.username.value = UserInfoManager.id.value.substring(0, 6)
+    })
+    // console.log(new Peer());
 })
 function changeTabs(tab) {
     console.log("切换tab", tab);
