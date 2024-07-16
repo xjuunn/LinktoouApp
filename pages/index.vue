@@ -23,19 +23,14 @@
     <Notification></Notification>
 </template>
 
-<script setup >
-import { useNotification } from '../composables/useNotification';
-import AppNotification, { NotificationLevel } from '../types/AppNotification';
-import { AppNotificationBuilder } from '../utils/AppNotificationBuilder';
-let { NotificationManager, createNotification } = useNotification();
-let { peer,connect,sendById } = usePeer();
+<script setup>
+let { peer, connect, sendById } = usePeer();
 onMounted(() => {
     peer.on('open', (id) => {
         UserInfoManager.id.value = id;
         UserInfoManager.isOnline.value = true;
         UserInfoManager.username.value = UserInfoManager.id.value.substring(0, 6)
     })
-    // console.log(peer);
 })
 function changeTabs(tab) {
     console.log("切换tab", tab);
@@ -44,8 +39,8 @@ let data = ref('');
 function test() {
     connect(data.value);
 }
-function send(){
-    sendById(data.value,'你好')
+function send() {
+    sendById(data.value, '你好')
 }
 
 </script>

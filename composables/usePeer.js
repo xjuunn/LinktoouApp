@@ -39,10 +39,3 @@ export const usePeer = (init_peer_id) => {
     sendById,
   };
 };
-
-// export const usePeer = (init_peer_id)=>{
-//   console.log();
-//     // onMounted(()=>{
-//     //   console.log("test");
-//     // })
-// }
