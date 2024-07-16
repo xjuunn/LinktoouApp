@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export enum NotificationLevel {
     /** 可忽视 手动查看 */
     Ignore,
@@ -8,7 +10,7 @@ export enum NotificationLevel {
     /** 非常重要 弹出查看 手动关闭 */
     VeryImportant
 }
-import shortid from 'shortid';
+// import shortid from 'shortid';
 
 export default class AppNotification {
     /**
@@ -53,7 +55,8 @@ export default class AppNotification {
     }
 
     /** 通知ID */
-    id:string = shortid.generate();
+    // id:string = shortid.generate();
+    id:string = nanoid();
     /** 通知图标 */
     icon:string = '';
     /** 通知源 */

@@ -27,7 +27,7 @@ import { AppNotificationBuilder } from '../utils/AppNotificationBuilder';
 
 
 // let { peer, connect, sendById } = usePeer();
-// let { NotificationManager, createNotification } = useNotification();
+let { NotificationManager, createNotification } = useNotification();
 
 // peer.on('open', (id) => {
 //     UserInfoManager.id.value = id;
