@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="flex-1 m-2 ps-2">
-                {{ UserInfoManager.name }}
+                {{ UserInfoManager.username }}
             </div>
         </div>
         <div class="collapse-content">
@@ -45,6 +45,7 @@
             </div>
         </div>
     </div>
+    
 </template>
 
 <script setup>
@@ -61,7 +62,7 @@ let themeToggle = computed(() => {
 onMounted(() => {
     themeChange(false)
     let theme = useLocalStorage('theme');
-    if(theme.value !== UserInfoManager.themes[0]) themeDark.value = false;
+    if (theme.value !== UserInfoManager.themes[0]) themeDark.value = false;
 })
 function copy(msg) {
     clipboard.copy(msg);

@@ -1,5 +1,6 @@
 import { RSAKey } from "jsencrypt/lib/lib/jsbn/rsa";
 import type { DataConnection } from "peerjs";
+import { Ref ,ref} from "vue";
 
 /**
  * 存储当前用户信息
@@ -9,7 +10,7 @@ export default class UserInfoManager {
     /** 用户的 peer_id */
     static id: Ref<string> = ref('');
     /** 用户名 */
-    static name: Ref<string> = ref('');
+    static username: Ref<string> = ref('');
     /** 用户头像URL */
     static avatar_url: Ref<string> = ref('https://pbs.twimg.com/profile_images/1770095002783535104/QNTnQj0B_400x400.jpg');
     /** 用户联系方式 */

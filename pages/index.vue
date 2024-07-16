@@ -12,23 +12,35 @@
                 </svg>
             </label>
             <ChatTabs :tabs="['聊天', '群组', '频道']" @onTabChanged="changeTabs"></ChatTabs>
-            <ChatList></ChatList>
+            <ChatList>
+            </ChatList>
+            <button @click='test' class="btn btn-primary">test</button>
         </Sidebar>
     </div>
+    <Notification></Notification>
 </template>
 
 <script setup>
-let { peer, connect, sendById } = usePeer('4f5e8d30-846e-48d4-b68d-627520fc2f02');
-peer.on('open',(id)=>{
+import { useNotification } from '../composables/useNotification';
+import AppNotification, { NotificationLevel } from '../types/AppNotification';
+
+
+let { peer, connect, sendById } = usePeer();
+let {NotificationManager,createNotification} = useNotification();
+
+peer.on('open', (id) => {
     UserInfoManager.id.value = id;
     UserInfoManager.isOnline.value = true;
-    UserInfoManager.name.value = UserInfoManager.id.value.substring(0,6)
+    UserInfoManager.username.value = UserInfoManager.id.value.substring(0, 6)
 })
-onMounted(()=>{
-    
+onMounted(() => {
+
 })
 function changeTabs(tab) {
     console.log("切换tab", tab);
+}
+function test(){
+    createNotification(new AppNotification('通知源','标题','通知内容通知内容通知内容通知内容通知内容通知内容通知内容',NotificationLevel.General))
 }
 
 </script>

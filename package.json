@@ -22,11 +22,13 @@
     "markdown-it": "^14.1.0",
     "nuxt": "^3.12.3",
     "peerjs": "^1.5.4",
+    "shortid": "^2.2.16",
     "theme-change": "^2.5.0",
     "vue": "latest"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
+    "@types/shortid": "^0.0.32",
     "sass": "^1.77.8"
   }
 }
