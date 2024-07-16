@@ -54,6 +54,8 @@ export default class AppNotification {
 
     /** 通知ID */
     id:string = shortid.generate();
+    /** 通知图标 */
+    icon:string = '';
     /** 通知源 */
     origin: string;
     /** 通知标题 */
@@ -66,4 +68,8 @@ export default class AppNotification {
     type:string = '';
     /** 通知时间 */
     time: Date = new Date();
+    /** 确定按钮事件 */
+    okHandler:{text:string,handler:Function}|null = null;
+    /** 取消按钮事件 */
+    cancelHandler:{text:string,handler:Function}|null = null;
 }

@@ -27,7 +27,7 @@ export default class NotificationManager {
         return null;
     }
 
-    /** 添加到可显示通知列表 */
+    /** 添加到可显示通知列表 规定时间后消失 */
     static pushShowNotification(notification: AppNotification) {
         NotificationManager.notificationShowList.value.push(notification);
         setTimeout(() => {
