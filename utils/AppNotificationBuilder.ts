@@ -1,14 +1,13 @@
 import shortid from 'shortid';
 import AppNotification, { NotificationLevel } from '../types/AppNotification';
-
 export class AppNotificationBuilder {
     private icon: string;
     private origin: string;
     private title: string;
     private message: string;
     private level: NotificationLevel;
-    private okHandler:{text:string,handler:Function}|null;
-    private cancelHandler:{text:string,handler:Function}|null;
+    private okHandler: { text: string, handler: Function } | null;
+    private cancelHandler: { text: string, handler: Function } | null;
 
     constructor() {
         this.icon = '';
@@ -50,8 +49,8 @@ export class AppNotificationBuilder {
      * @param handler 处理函数
      * @returns 
      */
-    setOkHandler(text:string,handler:Function){
-        this.okHandler = {text,handler};
+    setOkHandler(text: string, handler: Function) {
+        this.okHandler = { text, handler };
         return this;
     }
     /**
@@ -60,11 +59,11 @@ export class AppNotificationBuilder {
      * @param handler 处理函数
      * @returns 
      */
-    setCancelHandler(text:string,handler:Function){
-        this.cancelHandler = {text,handler};
+    setCancelHandler(text: string, handler: Function) {
+        this.cancelHandler = { text, handler };
         return this;
     }
-    
+
     /** 构建通知对象 */
     build(): AppNotification {
         let notification = new AppNotification(this.origin, this.title, this.message, this.level)
