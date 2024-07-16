@@ -1,10 +1,16 @@
 import Peer from "peerjs";
 let peer = null;
 export const usePeer = (init_peer_id) => {
-  if (!peer) peer = new Peer(init_peer_id?init_peer_id:null);
+  if (!peer && import.meta.client) {
+    peer = new Peer(init_peer_id ? init_peer_id : null);
+    // 被连接
+    peer.on("connection", (conn) => {
+      connected(UserManager.addUserByInfo(conn.peer, conn.peer, conn));
+    });
+  }
   // 手动初始化
-  function init(){
-    peer = new Peer(init_peer_id?init_peer_id:null);
+  function init() {
+    peer = new Peer(init_peer_id ? init_peer_id : null);
   }
   // 连接其他用户
   function connect(peer_id) {
@@ -13,10 +19,7 @@ export const usePeer = (init_peer_id) => {
       connected(UserManager.addUserByInfo(peer_id, peer_id, conn));
     });
   }
-  // 被连接
-  peer.on("connection", (conn) => {
-    connected(UserManager.addUserByInfo(conn.peer, conn.peer, conn));
-  });
+
   // 发送消息
   function sendById(peer_id, message) {
     let user = UserManager.findUserById(peer_id);
@@ -36,3 +39,10 @@ export const usePeer = (init_peer_id) => {
     sendById,
   };
 };
+
+// export const usePeer = (init_peer_id)=>{
+//   console.log();
+//     // onMounted(()=>{
+//     //   console.log("test");
+//     // })
+// }
