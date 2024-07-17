@@ -42,7 +42,7 @@
                     </label>
                 </div>
                 <button class="btn join-item btn-sm" @click="updateInfo">修改信息</button>
-                <button class="btn join-item btn-sm">重连</button>
+                <button class="btn join-item btn-sm" @click='reConnect'>重连</button>
             </div>
         </div>
     </div>
@@ -77,6 +77,9 @@ let showUpdate = ref(false);
 let inputError = ref('');
 let username = ref('');
 let avatar_url = ref(structuredClone(UserInfoManager.avatar_url.value));
+const { peer } = usePeer();
+function reConnect() {
+}
 watch(themeDark, async () => {
     let html = document.getElementsByTagName('html')[0];
     html.setAttribute('data-theme', themeDark.value ? 'dark' : 'nord');
@@ -113,8 +116,8 @@ function btnSaveHandler() {
     }
     UserInfoManager.username.value = username.value + "";
     UserInfoManager.avatar_url.value = avatar_url.value + "";
-    localStorage.setItem('username',UserInfoManager.username.value);
-    localStorage.setItem('avatar_url',UserInfoManager.avatar_url.value);
+    localStorage.setItem('username', UserInfoManager.username.value);
+    localStorage.setItem('avatar_url', UserInfoManager.avatar_url.value);
     showUpdate.value = false;
 }   
 </script>

@@ -8,15 +8,16 @@ export const usePeer = (init_peer_id) => {
       connected(UserManager.addUserByInfo(conn.peer, conn.peer, conn));
     });
   }
-  // 手动初始化
-  function init() {
-    peer = new Peer(init_peer_id ? init_peer_id : null);
-  }
-  // 连接其他用户
-  function connect(peer_id) {
+    /**
+     * 主动连接
+     * @param {*} peer_id 对方ID
+     * @param {*} call 连接成功回调
+     */
+  function connect(peer_id,call) {
     let conn = peer.connect(peer_id);
     conn.on("open", () => {
       connected(UserManager.addUserByInfo(peer_id, peer_id, conn));
+      call();
     });
   }
 
@@ -34,7 +35,6 @@ export const usePeer = (init_peer_id) => {
 
   return {
     peer,
-    init,
     connect,
     sendById,
   };
