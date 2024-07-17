@@ -1,6 +1,7 @@
 <template>
     <div class="userInfoCard m-1 rounded-lg hover:bg-base-300 transition-color collapse collapse-arrow focus:border-base-content border-2 border-transparent"
         tabindex="0">
+        <input type="checkbox" />
         <div class="flex collapse-title p-3 m-0">
             <div class="avatar skeleton" :class="UserInfoManager.isOnline.value ? 'online' : 'offline'">
                 <div class="w-10 h-10 rounded-full">
@@ -40,21 +41,48 @@
                         </svg>
                     </label>
                 </div>
-                <button class="btn join-item btn-sm">修改信息</button>
+                <button class="btn join-item btn-sm" @click="updateInfo">修改信息</button>
                 <button class="btn join-item btn-sm">重连</button>
             </div>
         </div>
     </div>
-    
+    <Lindialog title="修改信息" :show="showUpdate">
+        <div class="w-full p-2 pe-7 pb-0 mt-3 flex">
+            <div class="label w-32">
+                <div class='w-fill'></div>
+                <span class="label-text me-2">昵称 : </span>
+            </div>
+            <input v-model="username" type="input" class="input input-bordered w-full" placeholder="输入昵称">
+        </div>
+        <div class="w-full p-3 pe-7 pb-0 flex mb-2">
+            <div class="label w-32">
+                <div class='w-fill'></div>
+                <span class="label-text me-2">头像URL : </span>
+            </div>
+            <input v-model="avatar_url" type="input" class="input input-bordered w-full" placeholder="输入头像URL">
+        </div>
+        <div class="text-right me-7 mb-3 mt-3 text-sm text-error">{{ inputError }}</div>
+        <template #footer>
+            <button class="btn btn-primary" @click="btnSaveHandler">保存</button>
+            <button class="btn btn-ghost" @click="showUpdate = false">取消</button>
+        </template>
+    </Lindialog>
 </template>
 
 <script setup>
 let clipboard = useClipboard()
 import { themeChange } from 'theme-change'
 let themeDark = ref(true);
+let showUpdate = ref(false);
+let inputError = ref('');
+let username = ref(structuredClone(UserInfoManager.username.value));
+let avatar_url = ref(structuredClone(UserInfoManager.avatar_url.value));
 watch(themeDark, async () => {
     let html = document.getElementsByTagName('html')[0];
     html.setAttribute('data-theme', themeDark.value ? 'dark' : 'nord');
+})
+watch(UserInfoManager.username, () => {
+    username.value = UserInfoManager.username.value
 })
 let themeToggle = computed(() => {
     return UserInfoManager.themes[0] + ',' + UserInfoManager.themes[1];
@@ -67,7 +95,26 @@ onMounted(() => {
 function copy(msg) {
     clipboard.copy(msg);
 }
-
+function updateInfo() {
+    showUpdate.value = true;
+}
+function btnSaveHandler() {
+    if (username.value.length < 1) {
+        inputError.value = "请输入昵称";
+        return;
+    }
+    if (username.value.length >= 12) {
+        inputError.value = "昵称过长";
+        return;
+    }
+    if (avatar_url.value.length < 1) {
+        inputError.value = "请输入头像url";
+        return;
+    }
+    UserInfoManager.username.value = username.value + "";
+    UserInfoManager.avatar_url.value = avatar_url.value + "";
+    showUpdate.value = false;
+}
 </script>
 
 <style lang="scss" scoped></style>

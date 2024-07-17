@@ -1,6 +1,6 @@
 import { RSAKey } from "jsencrypt/lib/lib/jsbn/rsa";
 import type { DataConnection } from "peerjs";
-import { Ref ,ref} from "vue";
+import { ref} from "vue";
 
 /**
  * 存储当前用户信息

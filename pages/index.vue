@@ -14,14 +14,7 @@
             <ChatTabs :tabs="['聊天', '群组', '频道']" @onTabChanged="changeTabs"></ChatTabs>
             <ChatList>
             </ChatList>
-            <Lindialog title="标题" :show="showDialog" @update:show="showDialog = $event" :close="true">
-
-                <p class="py-4">内容内容内容内容内容内容</p>
-                <template #footer>
-                    <button class="btn btn-primary">确定</button>
-                </template>
-            </Lindialog>
-            <button class="btn" @click="test">open modal</button>
+            <button class="btn btn-primary" @click="test">test</button>
         </Sidebar>
     </div>
     <Notification></Notification>
@@ -39,13 +32,10 @@ onMounted(() => {
 function changeTabs(tab) {
     console.log("切换tab", tab);
 }
-let showDialog = ref(false);
 function test() {
-    showDialog.value = true;
+    console.log('test');
 }
-function updateshow(e) {
-    showDialog.value = e
-}
+
 </script>
 
 <style lang="scss" scoped></style>

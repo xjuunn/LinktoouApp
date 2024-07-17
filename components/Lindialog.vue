@@ -18,6 +18,12 @@
 </template>
 
 <script setup>
+/**
+ * show 开启状态
+ * close 是否显示关闭按钮和点击背景关闭
+ * title 标题文字
+ * update:show 点击关闭按钮或背景
+ */
 let props = defineProps(['show', 'close', 'title']);
 let emit = defineEmits(['update:show']);
 function handleCloseClick() {
