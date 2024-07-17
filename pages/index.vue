@@ -14,10 +14,14 @@
             <ChatTabs :tabs="['聊天', '群组', '频道']" @onTabChanged="changeTabs"></ChatTabs>
             <ChatList>
             </ChatList>
-            <input v-model="data" type="text" class="input input-primary" />
-            <button @click='test' class="btn btn-primary">连接</button>
-            <button @click='send' class="btn btn-primary">发消息</button>
+            <Lindialog title="标题" :show="showDialog" @update:show="showDialog = $event" :close="true">
 
+                <p class="py-4">内容内容内容内容内容内容</p>
+                <template #footer>
+                    <button class="btn btn-primary">确定</button>
+                </template>
+            </Lindialog>
+            <button class="btn" @click="test">open modal</button>
         </Sidebar>
     </div>
     <Notification></Notification>
@@ -35,14 +39,13 @@ onMounted(() => {
 function changeTabs(tab) {
     console.log("切换tab", tab);
 }
-let data = ref('');
+let showDialog = ref(false);
 function test() {
-    connect(data.value);
+    showDialog.value = true;
 }
-function send() {
-    sendById(data.value, '你好')
+function updateshow(e) {
+    showDialog.value = e
 }
-
 </script>
 
 <style lang="scss" scoped></style>
