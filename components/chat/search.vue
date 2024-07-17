@@ -18,13 +18,11 @@ function keydownHandler(key) {
     }
 }
 function EnterHandler() {
-
     if (searchValue.value.length >= 3)
         connect(searchValue.value, () => {
-    
+            searchValue.value = ''
         }
     );
-    console.log("Enter!");
 }
 </script>
 

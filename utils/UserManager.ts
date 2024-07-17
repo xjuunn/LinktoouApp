@@ -4,10 +4,10 @@ import User from '../types/User'
  */
 export default class UserManager {
 
-    static userList: Map<string, User> = new Map();
+    static userList: Ref<User[]> = ref([]);
 
     public static addUser(user: User): User {
-        UserManager.userList.set(user.id, user);
+        UserManager.userList.value.push(user)
         return user;
     }
 
@@ -18,10 +18,13 @@ export default class UserManager {
     }
 
     public static findUserById(id: string): User | undefined {
-        return UserManager.userList.get(id);
+        UserManager.userList.value.forEach((item, index,) => {
+            if(item.id === id) return item;
+        })
+        return undefined;
     }
 
-    public static getUserList(): Map<string, User> {
+    public static getUserList(): Ref<User[]> {
         return UserManager.userList;
     }
 

@@ -3,7 +3,7 @@
         <Sidebar>
             <InfoCard></InfoCard>
             <ChatSearch></ChatSearch>
-            <ChatTabs :tabs="['聊天', '群组', '频道']" @onTabChanged="changeTabs"></ChatTabs>
+            <ChatTabs :tabs="['聊天', '群组', '分类']" @onTabChanged="changeTabs"></ChatTabs>
             <ChatList>
             </ChatList>
             <button class="btn btn-primary" @click="test">test</button>

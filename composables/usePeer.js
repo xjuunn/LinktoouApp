@@ -5,7 +5,7 @@ export const usePeer = (init_peer_id) => {
     peer = new Peer(init_peer_id ? init_peer_id : null);
     // 被连接
     peer.on("connection", (conn) => {
-      connected(UserManager.addUserByInfo(conn.peer, conn.peer, conn));
+      connected(UserManager.addUserByInfo(conn.peer, conn.peer.substring(0, 6), conn));
     });
   }
     /**
@@ -16,7 +16,7 @@ export const usePeer = (init_peer_id) => {
   function connect(peer_id,call) {
     let conn = peer.connect(peer_id);
     conn.on("open", () => {
-      connected(UserManager.addUserByInfo(peer_id, peer_id, conn));
+      connected(UserManager.addUserByInfo(peer_id, peer_id.substring(0, 6), conn));
       call();
     });
   }
