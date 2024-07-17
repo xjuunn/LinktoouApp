@@ -75,7 +75,7 @@ import { themeChange } from 'theme-change'
 let themeDark = ref(true);
 let showUpdate = ref(false);
 let inputError = ref('');
-let username = ref(structuredClone(UserInfoManager.username.value));
+let username = ref('');
 let avatar_url = ref(structuredClone(UserInfoManager.avatar_url.value));
 watch(themeDark, async () => {
     let html = document.getElementsByTagName('html')[0];
@@ -113,8 +113,10 @@ function btnSaveHandler() {
     }
     UserInfoManager.username.value = username.value + "";
     UserInfoManager.avatar_url.value = avatar_url.value + "";
+    localStorage.setItem('username',UserInfoManager.username.value);
+    localStorage.setItem('avatar_url',UserInfoManager.avatar_url.value);
     showUpdate.value = false;
-}
+}   
 </script>
 
 <style lang="scss" scoped></style>
