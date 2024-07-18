@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue";
+import { ref } from "vue";
 import AppNotification, { NotificationLevel } from '../types/AppNotification';
 
 export default class NotificationManager {

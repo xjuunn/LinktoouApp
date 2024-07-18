@@ -18,9 +18,12 @@ export default class UserManager {
     }
 
     public static findUserById(id: string): User | undefined {
-        UserManager.userList.value.forEach((item, index,) => {
-            if(item.id === id) return item;
-        })
+        for (let index = 0; index < UserManager.userList.value.length; index++) {
+            const item = UserManager.userList.value[index];
+            if (item.id === id) {
+                return item;
+            }
+        }
         return undefined;
     }
 
