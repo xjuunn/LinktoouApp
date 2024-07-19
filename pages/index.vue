@@ -14,23 +14,20 @@
 </template>
 
 <script setup>
-import { SystemMessage, SystemMessageType, TextMessage} from '~/types/chat/Message';
-
-
-// let { peer} = usePeer();
+import { FileMessage, TextMessage } from '~/types/chat/Message';
+new PeerManager();
 onMounted(() => {
     UserInfoManager.username.value = useLocalStorage('username').value;
-    // peer.on('open', (id) => {
-    //     UserInfoManager.id.value = id;
-    //     UserInfoManager.isOnline.value = true;
-    //     UserInfoManager.username.value = UserInfoManager.username.value ?? UserInfoManager.id.value.substring(0, 6)
-    // })
+    
+
+
 })
 function changeTabs(tab) {
     console.log("切换tab", tab);
 }
 let testdata = ref('');
 function test() {
+    PeerManager.sendById(testdata.value,new TextMessage(testdata.value,"test发送消息"))
     
 }
 

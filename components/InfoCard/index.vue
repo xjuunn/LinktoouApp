@@ -77,7 +77,6 @@ let showUpdate = ref(false);
 let inputError = ref('');
 let username = ref('');
 let avatar_url = ref(structuredClone(UserInfoManager.avatar_url.value));
-const { peer } = usePeer();
 function reConnect() {
 }
 watch(themeDark, async () => {

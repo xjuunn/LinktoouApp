@@ -11,18 +11,17 @@
 
 <script setup>
 let searchValue = ref('');
-const { connect } = usePeer();
 function keydownHandler(key) {
     if (key.code === 'Enter') {
         EnterHandler();
     }
 }
 function EnterHandler() {
-    if (searchValue.value.length >= 3)
-        connect(searchValue.value, () => {
-            searchValue.value = ''
-        }
-    );
+    if (searchValue.value.length >= 3) {
+        PeerManager.connect(searchValue.value)
+        searchValue.value = '';
+    }
+
 }
 </script>
 

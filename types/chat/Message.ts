@@ -50,7 +50,7 @@ export class Message {
     }
 }
 
-// 文字消息类
+/** 文字消息类 */
 export class TextMessage extends Message {
     /** 消息主体 */
     message: string;
@@ -61,7 +61,7 @@ export class TextMessage extends Message {
     }
 }
 
-// 图片消息类
+/** 图片消息类 */
 export class ImageMessage extends Message {
     /** 图片URL */
     imageUrl: string;
@@ -75,7 +75,7 @@ export class ImageMessage extends Message {
     }
 }
 
-// 视频消息类
+/** 视频消息类 */
 export class VideoMessage extends Message {
     /** 视频URL */
     videoUrl: string;
@@ -93,7 +93,7 @@ export class VideoMessage extends Message {
     }
 }
 
-// 表情消息类
+/** 表情消息类 */
 export class EmojiMessage extends Message {
     /** 表情字符 */
     emoji: string;
@@ -104,7 +104,7 @@ export class EmojiMessage extends Message {
     }
 }
 
-// 文件消息类
+/** 文件消息类 */
 export class FileMessage extends Message {
     /** 文件URL */
     fileUrl: string;
@@ -118,7 +118,7 @@ export class FileMessage extends Message {
     }
 }
 
-// 系统消息类
+/** 系统消息类 */
 export class SystemMessage extends Message {
     /** 系统消息内容 */
     message: string;
