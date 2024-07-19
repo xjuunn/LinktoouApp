@@ -8,28 +8,31 @@
             </ChatList>
             <input v-model="testdata" class="input">
             <button class="btn btn-primary" @click="test">test</button>
+            <video autoplay ref="video"></video>
         </Sidebar>
     </div>
     <Notification></Notification>
 </template>
 
 <script setup>
-import { FileMessage, TextMessage } from '~/types/chat/Message';
 new PeerManager();
 onMounted(() => {
     UserInfoManager.username.value = useLocalStorage('username').value;
-    
-
 
 })
 function changeTabs(tab) {
     console.log("切换tab", tab);
 }
 let testdata = ref('');
-function test() {
-    PeerManager.sendById(testdata.value,new TextMessage(testdata.value,"test发送消息"))
-    
+let video = ref(null);
+async function test() {
+    let {start} = useDisplayMedia();
+    let stream = await start();
+    PeerManager.call(testdata.value,stream)
+    video.value.srcObject = stream
+
 }
+
 
 </script>
 

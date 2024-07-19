@@ -1,4 +1,4 @@
-import { DataConnection, Peer, } from 'peerjs';
+import { DataConnection, MediaConnection, Peer, } from 'peerjs';
 import type { Message } from '~/types/chat/Message';
 export class PeerManager {
     constructor(peer_id?: string) {
@@ -13,15 +13,69 @@ export class PeerManager {
         let conn = this.peer.connect(peer_id);
         initializeConnectEvents(conn);
     }
-    public static sendById(id: string, message: Message) {
-        UserManager.findUserById(id)?.conn.send(message)
+    /**
+     * 发送一条消息到对应ID的用户
+     * @param id 接收者ID
+     * @param message 消息主体
+     */
+    public static send(id: string, message: Message) {
+        UserManager.findUserById(id)?.conn.send(message);
     }
+    /**
+     * 发送视频或语音
+     * @param id 接收者ID
+     * @param stream 媒体流
+     */
+    public static async call(id: string,stream:MediaStream ) {
+            let callObj = PeerManager.peer.call(id, stream);
+            initializeCallEvents(callObj);
+        // let { start, isSupported, stop, enabled } = useDisplayMedia()
+        // let stream = await start();
+        // if (stream != undefined) {
+        //     let callObj = PeerManager.peer.call(id, stream);
+        //     initializeCallEvents(callObj);
+        //     video.srcObject = stream;
+        // } else {
+        //     console.error('错误的流媒体对象:', stream);
 
+        // }
+
+
+    }
 
     public static test() {
-        
+
 
     }
+}
+
+/** 初始化通话事件监听器 */
+function initializeCallEvents(call: MediaConnection) {
+    /** 远程对等体添加 */
+    call.on('stream', stream => {
+        MediaStreamManager.addMediaStream(stream);
+    })
+    /** 关闭媒体连接 */
+    call.on('close', () => {
+        console.log('call-on-close');
+
+    })
+    /** 错误 */
+    call.on('error', error => {
+        console.log('call-on-error', error);
+
+    })
+    /** 状态变化 */
+    call.on('iceStateChanged', state => {
+        console.log('call-on-iceStateChanged', state);
+
+    })
+    /**  */
+    call.on('willCloseOnRemote', () => {
+        console.log('call-on-willCloseOnRemote');
+
+    })
+
 }
 
 /**
@@ -30,9 +84,9 @@ export class PeerManager {
  */
 function initializeConnectEvents(conn: DataConnection) {
     if (import.meta.server) return;
-    
+
     conn.on('open', () => {
-        console.log('添加用户',conn.peer);
+        console.log('添加用户', conn.peer);
         UserManager.addUserByInfo(conn.peer, conn.peer.substring(0, 6), conn);
 
     })
@@ -67,7 +121,7 @@ function initializePeerEvents(peer: Peer) {
         console.log('Peer-on-open: ' + id);
         UserInfoManager.isOnline.value = true;
         UserInfoManager.id.value = id;
-        
+
         if (!UserInfoManager.username.value) UserInfoManager.username.value = id.substring(0, 6)
     })
     // Peer 被销毁
