@@ -18,6 +18,7 @@ export enum MessageStatus {
 /** 系统消息类型 */
 export enum SystemMessageType {
     /** 在线检测 */ Ping = 'ping',
+    /** 数据同步 */ DataAsync = 'dataasync',
     /** 通知 */ Notification = 'notification',
     /** 错误 */ Error = 'error',
     /** 警告 */ Warning = 'warning',
@@ -29,8 +30,10 @@ export enum SystemMessageType {
 export class Message {
     /** 消息唯一ID */
     id: string;
-    /** 用户 Peer ID */
+    /** 接收者 Peer ID */
     user_peer_id: string;
+    /** 发送者 Peer ID */
+    send_user_peer_id:string = UserInfoManager.id.value;
     /** 消息类型 */
     type: MessageType;
     /** 消息状态 */
@@ -119,10 +122,13 @@ export class FileMessage extends Message {
 export class SystemMessage extends Message {
     /** 系统消息内容 */
     message: string;
+    /** 系统消息类型 */
+    systemMessageType:SystemMessageType;
 
-    constructor(message: string) {
+    constructor(systemMessageType:SystemMessageType,message?: string) {
         super('system', MessageType.System);
-        this.message = message;
+        this.systemMessageType = systemMessageType;
+        this.message = message??'';
     }
 }
 

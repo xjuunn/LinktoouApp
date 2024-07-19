@@ -1,3 +1,4 @@
+import { SystemMessage, SystemMessageType } from "~/types/chat/Message";
 import Peer from "peerjs";
 let peer = null;
 export const usePeer = (init_peer_id) => {
@@ -26,21 +27,24 @@ export const usePeer = (init_peer_id) => {
   }
 
   // 发送消息
-  function sendById(peer_id, message) {
-    let user = UserManager.findUserById(peer_id);
+  function send(message) {
+    let user = UserManager.findUserById(message.user_peer_id);
     if (user) user.conn.send(message);
-    else console.error('未找到用户: '+peer_id);
+    else console.error("未找到用户: " ,message.user_peer_id);
   }
 
   function connected(user) {
     user.conn.on("data", (data) => {
-      MessageManager.messageHandler(user.id, data);
+      MessageManager.messageHandler(data);
     });
+    send(
+      new SystemMessage(SystemMessageType.DataAsync)
+    );
   }
 
   return {
     peer,
     connect,
-    sendById,
+    send
   };
 };
