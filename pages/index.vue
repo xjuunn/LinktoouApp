@@ -7,8 +7,7 @@
             <ChatList>
             </ChatList>
             <input v-model="testdata" class="input">
-            <button class="btn btn-primary" @click="test">test</button>
-            <button class="btn btn-primary" @click="showvideo">显示视频</button>
+            <button @click="test" class="btn btn-primary">test</button>
             <video autoplay ref="video"></video>
         </Sidebar>
     </div>
@@ -16,6 +15,8 @@
 </template>
 
 <script setup>
+import { TextMessage } from '~/types/chat/Message';
+
 new PeerManager();
 onMounted(() => {
     UserInfoManager.username.value = useLocalStorage('username').value;
@@ -26,17 +27,10 @@ function changeTabs(tab) {
 }
 let testdata = ref('');
 let video = ref(null);
-async function test() {
-    let {start} = useDisplayMedia();
-    let stream = await start();
-    PeerManager.call(testdata.value,stream)
-    
+function test() {
+        PeerManager.send(testdata.value,new TextMessage(testdata.value,'testaaaaa'))
+}
 
-}
-function showvideo(){
-    console.log('显示视频：',MediaStreamManager.getMediaStreamList());
-    video.value.srcObject = MediaStreamManager.getMediaStreamList().value[0];
-}
 
 </script>
 
