@@ -1,4 +1,3 @@
-import { MediaConnection, } from "peerjs";
 export class MediaStreamManager {
     private static mediaStreamList: Ref<MediaStream[]> = ref([]);
 

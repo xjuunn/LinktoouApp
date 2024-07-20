@@ -2,9 +2,12 @@ import { DataConnection, MediaConnection, Peer, } from 'peerjs';
 import type { Message } from '~/types/chat/Message';
 export class PeerManager {
     constructor(peer_id?: string) {
-        if (peer_id) PeerManager.peer = new Peer(peer_id);
-        else PeerManager.peer = new Peer();
-        initializePeerEvents(PeerManager.peer);
+        if (import.meta.client) {
+            if (peer_id) PeerManager.peer = new Peer(peer_id);
+            else PeerManager.peer = new Peer();
+            initializePeerEvents(PeerManager.peer);
+        }
+
     }
     static peer: Peer;
 
@@ -26,9 +29,9 @@ export class PeerManager {
      * @param id 接收者ID
      * @param stream 媒体流
      */
-    public static async call(id: string,stream:MediaStream ) {
-            let callObj = PeerManager.peer.call(id, stream);
-            initializeCallEvents(callObj);
+    public static async call(id: string, stream: MediaStream) {
+        let callObj = PeerManager.peer.call(id, stream);
+        initializeCallEvents(callObj);
         // let { start, isSupported, stop, enabled } = useDisplayMedia()
         // let stream = await start();
         // if (stream != undefined) {
