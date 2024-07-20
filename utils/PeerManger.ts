@@ -32,18 +32,7 @@ export class PeerManager {
     public static async call(id: string, stream: MediaStream) {
         let callObj = PeerManager.peer.call(id, stream);
         initializeCallEvents(callObj);
-        // let { start, isSupported, stop, enabled } = useDisplayMedia()
-        // let stream = await start();
-        // if (stream != undefined) {
-        //     let callObj = PeerManager.peer.call(id, stream);
-        //     initializeCallEvents(callObj);
-        //     video.srcObject = stream;
-        // } else {
-        //     console.error('错误的流媒体对象:', stream);
-
-        // }
-
-
+        MediaStreamManager.addMediaStream(stream); 
     }
 
     public static test() {
@@ -54,9 +43,16 @@ export class PeerManager {
 
 /** 初始化通话事件监听器 */
 function initializeCallEvents(call: MediaConnection) {
+    console.log('初始化Call');
+    
     /** 远程对等体添加 */
     call.on('stream', stream => {
-        MediaStreamManager.addMediaStream(stream);
+        console.log('接听后回调');
+        
+        MediaStreamManager.addMediaStream(stream); 
+        console.log('call-on-stream',stream);
+        
+        
     })
     /** 关闭媒体连接 */
     call.on('close', () => {
@@ -149,7 +145,9 @@ function initializePeerEvents(peer: Peer) {
     })
     // 呼叫
     peer.on('call', mediaConnection => {
-        console.log('Peer-on-call: ', mediaConnection);
+        initializeCallEvents(mediaConnection);
+        mediaConnection.answer();
+        console.log('Peer-on-call: ', mediaConnection,'接听');
 
 
     })

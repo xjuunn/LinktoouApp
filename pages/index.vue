@@ -8,6 +8,7 @@
             </ChatList>
             <input v-model="testdata" class="input">
             <button class="btn btn-primary" @click="test">test</button>
+            <button class="btn btn-primary" @click="showvideo">显示视频</button>
             <video autoplay ref="video"></video>
         </Sidebar>
     </div>
@@ -29,10 +30,13 @@ async function test() {
     let {start} = useDisplayMedia();
     let stream = await start();
     PeerManager.call(testdata.value,stream)
-    video.value.srcObject = stream
+    
 
 }
-
+function showvideo(){
+    console.log('显示视频：',MediaStreamManager.getMediaStreamList());
+    video.value.srcObject = MediaStreamManager.getMediaStreamList().value[0];
+}
 
 </script>
 

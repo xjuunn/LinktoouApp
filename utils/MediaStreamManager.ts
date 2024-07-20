@@ -7,6 +7,8 @@ export class MediaStreamManager {
      */
     public static addMediaStream(mediaStream: MediaStream) {
         MediaStreamManager.mediaStreamList.value.push(mediaStream);
+        console.log('添加一个流媒体',mediaStream,MediaStreamManager.mediaStreamList.value);
+        
     }
     /**
      * 获取流媒体对象列表
